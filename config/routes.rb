@@ -7,4 +7,5 @@ ArmoredTruck::Application.routes.draw do
   resources :users
 
   post 'safe/upload' => 'safes#upload'
+  get 'user/generate' => 'users#generate'
 end

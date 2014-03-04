@@ -52,6 +52,12 @@
               <li><%= link_to "Users", users_path %></li>
               <li><%= link_to "Safes", safes_path %></li>
             </ul>
+            <% if user_signed_in? %>
+            <ul class="navbar-right">
+              <%= link_to "Sign Out", destroy_user_session_path, { :method => 'delete', :class => "btn btn-xs btn-info" }%>
+            </ul>
+            <% else %>
+            <% end %>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -62,10 +68,12 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <% if user_signed_in? %>
+              <li class="nav-header"><%= current_user.email %></li>
+              <li><%= link_to "Edit Profile", edit_user_registration_path  %></li>
+              <%else%>
+              <li>Not Signed in</li>
+              <%end%>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
