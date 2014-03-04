@@ -3,7 +3,7 @@
 <tbody>
 	<% @safes.each do |safe| %>
 <tr>
-	<td class="col-sm-2"><%= safe.name %></td>
+	<td class="col-sm-2"><%= link_to(safe.name, safe) %></td>
 	<td class="col-sm-6"><%= safe.description %></td>
 </tr>
 <% end %>
