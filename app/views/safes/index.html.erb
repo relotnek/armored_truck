@@ -1,1 +1,4 @@
-index.html.erb
+<% @safes.each do |safe| %>
+<%= safe.name %><p>
+<%= safe.description %><br>
+<% end %>

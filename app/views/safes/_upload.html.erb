@@ -1,0 +1,6 @@
+<%= form_for(@safe, :url => safe_upload_path, :method => 'post') do |f| %>
+	<%= f.label :rawfile %>
+	<%= f.file_field :rawfile %>
+<%= f.button :submit %>
+<% end %>
+

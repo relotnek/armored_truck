@@ -11,6 +11,7 @@ end
 
 def create
   @safe = Safe.create(safe_params)
+  redirect_to safes_path
 end
 
 def show
@@ -20,11 +21,17 @@ end
 def edit
 end
 
+def update
+  @safe = Safe.find(params[:id])
+  redirect_to safes_path
+end
+
 def upload
   uploaded_io = params[:safe][:rawfile]
   File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
     file.write(uploaded_io.read)
   end
+  redirect_to safes_path
 end
 
 private
