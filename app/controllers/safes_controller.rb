@@ -2,15 +2,18 @@ class SafesController < ApplicationController
 before_filter :authenticate_user!
 
 def index
-  @safes = Safe.all
+  @user = current_user
+  @safes = Safe.where("user_id = ?", @user.id)
 end
 
 def new
-  @safe = Safe.new()
+  @user = current_user
+  @safe = @user.safes.new()
 end
 
 def create
-  @safe = Safe.create(safe_params)
+  @user = current_user
+  @safe = @user.safes.create(safe_params)
   redirect_to safes_path
 end
 
@@ -38,6 +41,7 @@ def upload
     File.open(Rails.root.join('public','uploads', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
       noncefile.write(@nonce)
     end
+    
     file.write(ciphertext)
   end
 
@@ -46,7 +50,7 @@ end
 
 private
 def safe_params
-  params.require(:safe).permit(:id, :name, :description,:rawfile)
+  params.require(:safe).permit(:id, :name, :description,:rawfile, :user_id)
 end
 
 end
