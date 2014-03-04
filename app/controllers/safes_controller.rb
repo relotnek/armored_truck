@@ -14,15 +14,22 @@ def create
 end
 
 def show
-  @safe = Safe.find(safe_params)
+  @safe = Safe.find(params[:id])
 end
 
 def edit
 end
 
+def upload
+  uploaded_io = params[:safe][:rawfile]
+  File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+    file.write(uploaded_io.read)
+  end
+end
+
 private
 def safe_params
-  params.require(:safe).permit(:name, :description)
+  params.require(:safe).permit(:id, :name, :description,:rawfile)
 end
 
 end
