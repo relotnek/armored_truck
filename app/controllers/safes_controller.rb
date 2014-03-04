@@ -27,6 +27,7 @@ def update
 end
 
 def upload
+  @user = current_user
   uploaded_io = params[:safe][:rawfile]
   File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
     file.write(uploaded_io.read)

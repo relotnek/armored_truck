@@ -1,4 +1,12 @@
-<% @safes.each do |safe| %>
-<%= safe.name %><p>
-<%= safe.description %><br>
+<div class="col-md-8">
+<table class="table table-bordered table-striped">
+<tbody>
+	<% @safes.each do |safe| %>
+<tr>
+	<td class="col-sm-2"><%= safe.name %></td>
+	<td class="col-sm-6"><%= safe.description %></td>
+</tr>
 <% end %>
+</tbody>
+</table>
+</div>

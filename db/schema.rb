@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304171554) do
+ActiveRecord::Schema.define(version: 20140304185424) do
 
   create_table "safes", force: true do |t|
     t.string   "name"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20140304171554) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "name"
-    t.string   "public_key"
-    t.string   "priv_key"
+    t.binary   "priv_key"
+    t.binary   "public_key"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -6,6 +6,5 @@ ArmoredTruck::Application.routes.draw do
   resources :safes
   resources :users
 
-  get 'safe/upload' => 'safes#upload'
   post 'safe/upload' => 'safes#upload'
 end

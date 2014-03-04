@@ -1,6 +1,6 @@
-class CreateSaves < ActiveRecord::Migration
+class CreateSafes < ActiveRecord::Migration
   def change
-    create_table :saves do |t|
+    create_table :safes do |t|
       t.string :name
       t.string :description
 
