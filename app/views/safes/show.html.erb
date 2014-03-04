@@ -1,2 +1,6 @@
+<% if current_user.id == @safe.user_id %>
 <%= @safe.name %><p>
 <%= render 'upload' %>
+<%else%>
+Not your safe homeboy.
+<%end%>
