@@ -10,10 +10,11 @@ def new
 end
 
 def create
+  @safe = Safe.create(safe_params)
 end
 
 def show
-  @safe = Safe.find(params[:id])
+  @safe = Safe.find(safe_params)
 end
 
 def edit
@@ -22,5 +23,6 @@ end
 private
 def safe_params
   params.require(:safe).permit(:name, :description)
+end
 
 end
