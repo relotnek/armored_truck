@@ -19,4 +19,8 @@ end
 def edit
 end
 
+private
+def safe_params
+  params.require(:safe).permit(:name, :description)
+
 end
