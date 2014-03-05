@@ -1,0 +1,10 @@
+<%= form_for(@safe, :url => safe_decrypt_path, :method => 'post') do |f| %>
+	<%= f.label :noncefile %>
+	<%= f.file_field :noncefile %><br>
+	<%= f.label "Encrypted File:" %>
+	<%= f.file_field :rawfile %>
+	<%= label_tag "Sender Email:" %>
+	<%= text_field_tag :sender_id %><br>
+<%= f.button :submit, :class => "btn btn-xs btn-success" %>
+<% end %>
+

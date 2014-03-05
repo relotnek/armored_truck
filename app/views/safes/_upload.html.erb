@@ -1,6 +1,8 @@
 <%= form_for(@safe, :url => safe_upload_path, :method => 'post') do |f| %>
 	<%= f.label :rawfile %>
-	<%= f.file_field :rawfile %>
-<%= f.button :submit %>
+	<%= f.file_field :rawfile %><br>
+	<%= label_tag "Recipient Email:" %>
+	<%= text_field_tag :recipient_id %><br>
+<%= f.button :submit, :class => "btn btn-xs btn-success" %>
 <% end %>
 
