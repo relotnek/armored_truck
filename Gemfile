@@ -33,6 +33,11 @@ gem 'devise'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Twitter bootstrap
+gem 'twitter-bootstrap-rails'
+gem 'less-rails'
+gem 'therubyracer'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
