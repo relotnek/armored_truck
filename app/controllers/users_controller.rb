@@ -10,9 +10,8 @@ class UsersController < ApplicationController
     @user = current_user
     private = RbNaCl::PrivateKey.generate
     public = private.public_key
-    @user.priv_key = private.to_bytes
     @user.public_key = public.to_bytes
     @user.save
-    redirect_to users_path
+    send_data private, :filename => "ac_privkey"
   end
 end

@@ -33,9 +33,10 @@ def upload
   @user = current_user
   @recipient = User.find_by(email: params[:recipient_id])
   uploaded_io = params[:safe][:rawfile]
+  priv_key = params[:safe][:priv_key]
   File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
 
-    box = RbNaCl::Box.new(@recipient.public_key, @user.priv_key)
+    box = RbNaCl::Box.new(@recipient.public_key, priv_key.read)
     @nonce = RbNaCl::Random.random_bytes(box.nonce_bytes)
     message = uploaded_io.read
     ciphertext = box.encrypt(@nonce,message)
@@ -54,13 +55,13 @@ def decrypt
   @sender = User.find_by(email: params[:sender_id])
   uploaded_io = params[:safe][:rawfile]
   nonce_io = params[:safe][:noncefile]
-  
-    box = RbNaCl::Box.new(@sender.public_key, @user.priv_key)
+  priv_key = params[:safe][:priv_key]
+    box = RbNaCl::Box.new(@sender.public_key, priv_key.read)
     @nonce = nonce_io.read
     ciphertext = uploaded_io.read
     message = box.decrypt(@nonce,ciphertext)
     
-  send_data message, :filename => uploaded_io.original_filename
+  send_data message, :filename => uploaded_io.original_filename 
 end
 
 private

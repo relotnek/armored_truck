@@ -1,10 +1,14 @@
 <% if current_user.id == @safe.user_id %>
-<h3><%= @safe.name %></h3><p>
+<h3><%= @safe.name %></h3>
+<div class="span4">
 <h4>Encrypt a File</h4>
 <%= render 'upload' %>
 <p>
+</div>
+<div class="span4">
 <h4>Decrypt a File</h4>
 <%= render 'decrypt'%>
+</div>
 <%else%>
 Not your safe homeboy.
 <%end%>
