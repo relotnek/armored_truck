@@ -37,11 +37,11 @@ def upload
   File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
 
     box = RbNaCl::Box.new(@recipient.public_key, priv_key.read)
-    @nonce = RbNaCl::Random.random_bytes(box.nonce_bytes)
+    nonce = RbNaCl::Random.random_bytes(box.nonce_bytes)
     message = uploaded_io.read
-    ciphertext = box.encrypt(@nonce,message)
+    ciphertext = box.encrypt(nonce,message)
     File.open(Rails.root.join('public','uploads', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
-    noncefile.write(@nonce)
+    noncefile.write(nonce)
     end
     
     file.write(ciphertext)
@@ -57,9 +57,9 @@ def decrypt
   nonce_io = params[:safe][:noncefile]
   priv_key = params[:safe][:priv_key]
     box = RbNaCl::Box.new(@sender.public_key, priv_key.read)
-    @nonce = nonce_io.read
+    nonce = nonce_io.read
     ciphertext = uploaded_io.read
-    message = box.decrypt(@nonce,ciphertext)
+    message = box.decrypt(nonce,ciphertext)
     
   send_data message, :filename => uploaded_io.original_filename 
 end
