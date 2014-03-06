@@ -55,16 +55,12 @@ def decrypt
   uploaded_io = params[:safe][:rawfile]
   nonce_io = params[:safe][:noncefile]
   
-  File.open(Rails.root.join('public', 'decrypted', uploaded_io.original_filename), 'wb') do |file|
     box = RbNaCl::Box.new(@sender.public_key, @user.priv_key)
     @nonce = nonce_io.read
     ciphertext = uploaded_io.read
     message = box.decrypt(@nonce,ciphertext)
     
-    file.write(message)
-  end
-
-  redirect_to safes_path
+  send_data message, :filename => uploaded_io.original_filename
 end
 
 private
