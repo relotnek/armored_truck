@@ -40,15 +40,18 @@ def upload
     message = uploaded_io.read
     ciphertext = box.encrypt(nonce,message)
     
-  x = File.open(Rails.root.join('public','uploads', "encrypted-#{uploaded_io.original_filename}"), 'wb') do |cipherfile|
+  File.open(Rails.root.join('public','uploads', "encrypted-#{uploaded_io.original_filename}"), 'wb') do |cipherfile|
   cipherfile.write(ciphertext)
+  cipherfile.close
   end
   
-  y = File.open(Rails.root.join('public','uploads', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
+  File.open(Rails.root.join('public','uploads', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
   noncefile.write(nonce)
+  noncefile.close
   end
   
-  download_zip(y,x)
+  download_zip(uploaded_io.original_filename)
+
 end
 
 def decrypt
@@ -65,7 +68,12 @@ def decrypt
   send_data message, :filename => uploaded_io.original_filename 
 end
 
-def download_zip(nonce, ciphertext)
+private
+def safe_params
+  params.require(:safe).permit(:name, :description, :rawfile, :noncefile)
+end
+
+def download_zip(rawfilename)
   #Attachment name
   filename = 'encrypted.zip'
   temp_file = Tempfile.new(filename)
@@ -77,8 +85,8 @@ def download_zip(nonce, ciphertext)
  
     #Add files to the zip file as usual
     Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
-      zip.add("nonce", nonce)
-      zip.add("ciphertext", ciphertext)
+      zip.add("vt-#{rawfilename}", Rails.root.join('public','uploads', "vt-#{rawfilename}"))
+      zip.add("#{rawfilename}", Rails.root.join('public','uploads', "encrypted-#{rawfilename}"))
     end
  
     #Read the binary data from the file
@@ -93,11 +101,6 @@ def download_zip(nonce, ciphertext)
     temp_file.close
     temp_file.unlink
   end
-end
-
-private
-def safe_params
-  params.require(:safe).permit(:name, :description, :rawfile, :noncefile)
 end
 
 end
