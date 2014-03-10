@@ -13,6 +13,7 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
 
 # zipping for files
+gem 'zip-zip'
 gem 'rubyzip'
 
 # Use Uglifier as compressor for JavaScript assets

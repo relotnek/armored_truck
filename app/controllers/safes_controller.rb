@@ -77,8 +77,8 @@ def download_zip(nonce, ciphertext)
  
     #Add files to the zip file as usual
     Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
-      nonce
-      ciphertext
+      zip.add("nonce", nonce)
+      zip.add("ciphertext", ciphertext)
     end
  
     #Read the binary data from the file
