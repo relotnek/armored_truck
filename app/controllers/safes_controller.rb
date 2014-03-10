@@ -34,17 +34,15 @@ def upload
   @recipient = User.find_by(email: params[:recipient_id])
   uploaded_io = params[:safe][:rawfile]
   priv_key = params[:safe][:priv_key]
-  File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
 
     box = RbNaCl::Box.new(@recipient.public_key, priv_key.read)
     nonce = RbNaCl::Random.random_bytes(box.nonce_bytes)
     message = uploaded_io.read
     ciphertext = box.encrypt(nonce,message)
-    File.open(Rails.root.join('public','uploads', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
-    noncefile.write(nonce)
-    end
     
-    file.write(ciphertext)
+  send_data nonce, :filename => "vt-#{uploaded_io.original_filename}"
+  send_data ciphertext, :filename => "encrypted-#{uploaded_io.original_filename}"
+  
   end
 
   redirect_to safes_path
@@ -63,6 +61,25 @@ def decrypt
     
   send_data message, :filename => uploaded_io.original_filename 
 end
+
+def download_zip(file_list)
+    if !file_list.blank?
+      file_name = "encrypted.zip"
+      t = Tempfile.new("my-temp-filename-#{Time.now}")
+      Zip::ZipOutputStream.open(t.path) do |z|
+        file_list.each do |raw|
+          title = raw.title
+          z.put_next_entry(title)
+          z.print IO.read(raw.path)
+          raw.close
+        end
+      end
+      send_data t, :type => 'application/zip',
+                             :disposition => 'attachment',
+                             :filename => file_name
+      t.close
+    end
+  end
 
 private
 def safe_params
