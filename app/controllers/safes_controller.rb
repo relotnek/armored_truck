@@ -51,6 +51,8 @@ def upload
   end
   
   download_zip(uploaded_io.original_filename)
+  File.unlink(Rails.root.join('public','uploads', "vt-#{uploaded_io.original_filename}"))
+  File.unlink(Rails.root.join('public','uploads', "encrypted-#{uploaded_io.original_filename}"))
 
 end
 
