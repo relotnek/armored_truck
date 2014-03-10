@@ -58,4 +58,7 @@ gem 'unicorn'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Production Gem for Heroku
+gem 'rails_12factor', group: :production
+
 ruby '1.9.3'
