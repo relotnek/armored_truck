@@ -1,1 +1,3 @@
-placeholder
+placeholder.txt
+
+This is a test file to hold the uploads directory
