@@ -40,12 +40,15 @@ def upload
     message = uploaded_io.read
     ciphertext = box.encrypt(nonce,message)
     
-  send_data nonce, :filename => "vt-#{uploaded_io.original_filename}"
-  send_data ciphertext, :filename => "encrypted-#{uploaded_io.original_filename}"
-  
+  x = File.open(Rails.root.join('public','uploads', "encrypted-#{uploaded_io.original_filename}"), 'wb') do |cipherfile|
+  cipherfile.write(ciphertext)
   end
-
-  redirect_to safes_path
+  
+  y = File.open(Rails.root.join('public','uploads', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
+  noncefile.write(nonce)
+  end
+  
+  download_zip(y,x)
 end
 
 def decrypt
@@ -62,24 +65,35 @@ def decrypt
   send_data message, :filename => uploaded_io.original_filename 
 end
 
-def download_zip(file_list)
-    if !file_list.blank?
-      file_name = "encrypted.zip"
-      t = Tempfile.new("my-temp-filename-#{Time.now}")
-      Zip::ZipOutputStream.open(t.path) do |z|
-        file_list.each do |raw|
-          title = raw.title
-          z.put_next_entry(title)
-          z.print IO.read(raw.path)
-          raw.close
-        end
-      end
-      send_data t, :type => 'application/zip',
-                             :disposition => 'attachment',
-                             :filename => file_name
-      t.close
+def download_zip(nonce, ciphertext)
+  #Attachment name
+  filename = 'encrypted.zip'
+  temp_file = Tempfile.new(filename)
+ 
+  begin
+    #This is the tricky part
+    #Initialize the temp file as a zip file
+    Zip::OutputStream.open(temp_file) { |zos| }
+ 
+    #Add files to the zip file as usual
+    Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
+      nonce
+      ciphertext
     end
+ 
+    #Read the binary data from the file
+    zip_data = File.read(temp_file.path)
+ 
+    #Send the data to the browser as an attachment
+    #We do not send the file directly because it will
+    #get deleted before rails actually starts sending it
+    send_data(zip_data, :type => 'application/zip', :filename => filename)
+  ensure
+    #Close and delete the temp file
+    temp_file.close
+    temp_file.unlink
   end
+end
 
 private
 def safe_params
