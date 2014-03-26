@@ -39,20 +39,20 @@ def upload
     nonce = RbNaCl::Random.random_bytes(box.nonce_bytes)
     message = uploaded_io.read
     ciphertext = box.encrypt(nonce,message)
-    
-  File.open(Rails.root.join('tmp', "encrypted-#{uploaded_io.original_filename}"), 'wb') do |cipherfile|
+
+  File.open(Rails.root.join('public', 'tempstore', "encrypted-#{uploaded_io.original_filename}"), 'wb') do |cipherfile|
   cipherfile.write(ciphertext)
   cipherfile.close
   end
-  
-  File.open(Rails.root.join('tmp', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
+
+  File.open(Rails.root.join('public', 'tempstore', "vt-#{uploaded_io.original_filename}"), 'wb') do |noncefile|
   noncefile.write(nonce)
   noncefile.close
   end
-  
+
   download_zip(uploaded_io.original_filename)
-  File.unlink(Rails.root.join('tmp', "vt-#{uploaded_io.original_filename}"))
-  File.unlink(Rails.root.join('tmp', "encrypted-#{uploaded_io.original_filename}"))
+  File.unlink(Rails.root.join('public', 'tempstore', "vt-#{uploaded_io.original_filename}"))
+  File.unlink(Rails.root.join('public', 'tempstore', "encrypted-#{uploaded_io.original_filename}"))
 
 end
 
@@ -66,8 +66,8 @@ def decrypt
     nonce = nonce_io.read
     ciphertext = uploaded_io.read
     message = box.decrypt(nonce,ciphertext)
-    
-  send_data message, :filename => uploaded_io.original_filename 
+
+  send_data message, :filename => uploaded_io.original_filename
 end
 
 private
@@ -79,21 +79,21 @@ def download_zip(rawfilename)
   #Attachment name
   filename = 'encrypted.zip'
   temp_file = Tempfile.new(filename)
- 
+
   begin
     #This is the tricky part
     #Initialize the temp file as a zip file
     Zip::OutputStream.open(temp_file) { |zos| }
- 
+
     #Add files to the zip file as usual
     Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
-      zip.add("vt-#{rawfilename}", Rails.root.join('tmp', "vt-#{rawfilename}"))
-      zip.add("#{rawfilename}", Rails.root.join('tmp', "encrypted-#{rawfilename}"))
+      zip.add("vt-#{rawfilename}", Rails.root.join('public', 'tempstore', "vt-#{rawfilename}"))
+      zip.add("#{rawfilename}", Rails.root.join('public', 'tempstore', "encrypted-#{rawfilename}"))
     end
- 
+
     #Read the binary data from the file
     zip_data = File.read(temp_file.path)
- 
+
     #Send the data to the browser as an attachment
     #We do not send the file directly because it will
     #get deleted before rails actually starts sending it
