@@ -3,6 +3,26 @@ ArmoredTruck
 
 ArmoredTruck is a web based file encryption tool that uses public key encryption to encrypt files for secure transfer or storage.
 
+Setting Up
+=============
+
+ArmoredTruck is designed to be easily deployable using postgresql and unicorn web server in any environment,
+but also integrates well with Heroku on the Cedar stack.
+
+Using Heroku
+==============
+Follow the Heroku DevCenter setup for Rails 4:
+https://devcenter.heroku.com/articles/getting-started-with-rails4
+
+Use the custom buildpack to include the libsodium library:
+heroku config:set BUILDPACK_URL=https://github.com/relotnek/heroku-buildpack-libsodium.git
+
+Precompile Stylesheets and Assets using the following command:
+RAILS_ENV=production bundle exec rake assets:precompile
+
+Enable user-env-compile in Heroku:
+heroku labs:enable user-env-compile
+
 Generating Keys
 ===============
 
