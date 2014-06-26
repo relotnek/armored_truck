@@ -9,7 +9,7 @@ development:
   host: localhost
   database: trucker
   pool: 5
-  username: rails
+  username: armored_user
   password: Apple$auce1!
 
 # Warning: The database defined as "test" will be erased and
@@ -22,7 +22,7 @@ test:
   encoding: unicode
   database: test_trucker
   pool: 5
-  username: rails
+  username: armored_user
   password: Apple$auce1!
 
 production:
@@ -31,5 +31,5 @@ production:
   encoding: unicode
   database: prod_trucker
   pool: 5
-  username: rails
+  username: armored_user
   password: Apple$auce1!
