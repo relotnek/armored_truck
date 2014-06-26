@@ -81,7 +81,6 @@ def download_zip(rawfilename)
   temp_file = Tempfile.new(filename)
 
   begin
-    #This is the tricky part
     #Initialize the temp file as a zip file
     Zip::OutputStream.open(temp_file) { |zos| }
 
