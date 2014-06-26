@@ -10,5 +10,5 @@ ArmoredTruck::Application.routes.draw do
   post 'safe/upload' => 'safes#upload'
   post 'safe/decrypt' => 'safes#decrypt'
   get 'user/generate' => 'users#generate'
-  get 'key/generate' => 'keys#generate'
+  post 'key/generate' => 'keys#generate'
 end
