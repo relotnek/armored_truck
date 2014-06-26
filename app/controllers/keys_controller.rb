@@ -19,7 +19,6 @@ class KeysController < ApplicationController
     @key.public_key = public.to_bytes
     @key.save
     respond_to do |format|
-      format.html { send_data private, :filename => "ac_privkey" }
       format.js
     end
   end
