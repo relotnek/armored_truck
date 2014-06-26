@@ -1,6 +1,7 @@
 class KeysController < ApplicationController
   def index
     @user = current_user
+    @key = @user.keys.new()
     @keys = Key.where("user_id = ?", @user.id)
   end
 
@@ -11,18 +12,16 @@ class KeysController < ApplicationController
 
   def create
     @user = current_user
+    @keys = Key.where("user_id = ?", @user.id)
     @key = @user.keys.create(key_params)
-    redirect_to key_generate_path
-  end
-
-  def generate
-    @user = current_user
-    @key = @user.keys.last
     private = RbNaCl::PrivateKey.generate
     public = private.public_key
     @key.public_key = public.to_bytes
     @key.save
-    send_data private, :filename => "ac_privkey"
+    respond_to do |format|
+      format.html { send_data private, :filename => "ac_privkey" }
+      format.js
+    end
   end
 
   def show

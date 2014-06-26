@@ -1,12 +1,6 @@
 <div class="col-md-8">
-<%= link_to "New Key", new_key_path, class: "btn btn-sm btn-success" %><p>
-<table class="table table-bordered table-striped">
-<tbody>
-  <% @keys.each do |key| %>
-<tr>
-  <td class="col-sm-2"><%= link_to(key.name, key) %></td>
-</tr>
-<% end %>
-</tbody>
-</table>
+<%= render 'form' %>
+<div id="key_div">
+<%= render 'index' %>
+</div>
 </div>

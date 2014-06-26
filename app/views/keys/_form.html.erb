@@ -1,4 +1,4 @@
-<%= form_for(@key) do |f| %>
+<%= form_for(@key, :remote => true) do |f| %>
 <%= f.label :name %><br>
 <%= f.text_field :name %><br>
 <%= f.button :submit %>
