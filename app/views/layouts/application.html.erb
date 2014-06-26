@@ -48,8 +48,11 @@
           <%= link_to "ArmoredTruck", root_path, :class => "navbar-brand brand"%>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
+              <% if user_signed_in? %>
               <li><%= link_to "Users", users_path %></li>
               <li><%= link_to "Safes", safes_path %></li>
+              <li><%= link_to "Keys", keys_path %></li>
+              <% end %>
             </ul>
             <% if user_signed_in? %>
             <ul class="nav navbar-right">

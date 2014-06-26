@@ -4,9 +4,20 @@ class KeysController < ApplicationController
     @keys = Key.where("user_id = ?", @user.id)
   end
 
-  def generate
+  def new
     @user = current_user
     @key = @user.keys.new()
+  end
+
+  def create
+    @user = current_user
+    @key = @user.keys.create(key_params)
+    redirect_to key_generate_path
+  end
+
+  def generate
+    @user = current_user
+    @key = @user.keys.last
     private = RbNaCl::PrivateKey.generate
     public = private.public_key
     @key.public_key = public.to_bytes
@@ -22,7 +33,7 @@ class KeysController < ApplicationController
   end
 
   def key_params
-    params.require(:key).permit(:public)
+    params.require(:key).permit(:name)
   end
 
 end
