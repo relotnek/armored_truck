@@ -1,0 +1,12 @@
+<div class="col-md-8">
+<%= link_to "New Key", key_generate_path, class: "btn btn-sm btn-success", :remote => true %><p>
+<table class="table table-bordered table-striped">
+<tbody>
+  <% @keys.each do |key| %>
+<tr>
+  <td class="col-sm-2"><%= link_to(key.public_key, key) %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+</div>
