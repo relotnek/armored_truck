@@ -7,6 +7,7 @@
 	<%= f.file_field :rawfile %>
 	<%= label_tag "Sender Email:" %><br>
 	<%= text_field_tag :sender_id %><br>
+	<%= label_tag "Key Pair:" %><br>
+	<%= text_field_tag :key_name %><br>
 <%= f.button :submit, :class => "btn btn-xs btn-success" %>
 <% end %>
-

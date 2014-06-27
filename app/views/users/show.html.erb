@@ -1,0 +1,12 @@
+<h3><%= @user.email %></h3><br>
+<h2>Public Keys for <%= @user.email %></h2><p>
+<table class="table table-bordered table-striped">
+<tbody>
+  <% @keys.each do |key| %>
+<tr>
+  <td class="col-sm-2"><%= key.name %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+</div>
