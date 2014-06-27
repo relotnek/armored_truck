@@ -2,26 +2,27 @@ class SafesController < ApplicationController
 before_filter :authenticate_user!
 
 def index
+  #specifies current user so that only that users safes are shown
   @user = current_user
   @safes = Safe.where("user_id = ?", @user.id)
 end
 
 def new
+  #prepares a new safe under the current_user
   @user = current_user
   @safe = @user.safes.new()
 end
 
 def create
+  #creates a new safe under the current user
   @user = current_user
   @safe = @user.safes.create(safe_params)
   redirect_to safes_path
 end
 
 def show
+  #shows a safe by the id. Logic in the view will prevent unauthorized safe views
   @safe = Safe.find(params[:id])
-end
-
-def edit
 end
 
 def update
