@@ -18,6 +18,7 @@ class KeysController < ApplicationController
     @key = @user.keys.create(key_params)
     #responds to ajax request
     respond_to do |format|
+      format.html { redirect_to keys_path }
       format.js
     end
   end
