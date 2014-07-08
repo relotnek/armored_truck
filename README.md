@@ -9,6 +9,12 @@ Setting Up
 ArmoredTruck is designed to be easily deployable using postgresql and unicorn web server in any environment,
 but also integrates well with Heroku on the Cedar stack.
 
+Building Locally
+================
+
+Armored Truck can be built locally using postgres, libsodium libraries, and RbNaCl
+
+
 Using Heroku
 ==============
 Follow the Heroku DevCenter setup for Rails 4:
