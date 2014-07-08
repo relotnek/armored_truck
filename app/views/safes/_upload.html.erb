@@ -1,11 +1,11 @@
 <%= form_for(@safe, :url => safe_upload_path, :method => 'post') do |f| %>
-	<%= f.label "Private Key:" %><br>
+	<%= f.label "Your Private Key:" %><br>
 	<%= f.file_field :priv_key %>
-	<%= f.label :rawfile %>
+	<%= f.label "File to Encrypt:" %>
 	<%= f.file_field :rawfile %><br>
-	<%= label_tag "Recipient Email:" %><br>
+	<%= label_tag "Recipient's Email:" %><br>
 	<%= text_field_tag :recipient_id %><br>
-	<%= label_tag "Key Pair:" %><br>
+	<%= label_tag "Name of the Recipient's Public Key:" %><br>
 	<%= text_field_tag :key_name %><br>
 <%= f.button :submit, :class => "btn btn-xs btn-success" %>
 <% end %>
