@@ -37,7 +37,7 @@ class KeysController < ApplicationController
     #saves the key
     @key.save
     #sends private key to the user as a download so that it is never stored server side
-    send_data private, :filename => "ac_privkey"
+    send_data private, :filename => "#{@key.name}"
   end
 
   def show
