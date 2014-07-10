@@ -23,6 +23,10 @@ class KeysController < ApplicationController
     end
   end
 
+  def show
+    @key = Key.find(params[:id])
+  end
+
   def generate
     #specifies curent user so it can be used by @key
     @user = current_user
