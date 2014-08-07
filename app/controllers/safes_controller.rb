@@ -51,7 +51,6 @@ def decrypt
   @sender = User.find_by(email: params[:sender_id])
   @key = @sender.keys.where("name = ?", params[:key_name])
   uploaded_io = params[:safe][:rawfile]
-  nonce_io = params[:safe][:noncefile]
   priv_key = params[:safe][:priv_key]
     box = RbNaCl::Box.new(@key.first.public_key, priv_key.read)
     ciphertext = uploaded_io.read
