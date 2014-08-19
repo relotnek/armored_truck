@@ -51,7 +51,7 @@ def upload
   noncefile.write(nonce)
   noncefile.close
   end
-
+  FileMailer.mail_file(@recipient).deliver
   download_zip(uploaded_io.original_filename)
   File.unlink(Rails.root.join('public', 'tempstore', "vt-#{uploaded_io.original_filename}"))
   File.unlink(Rails.root.join('public', 'tempstore', "encrypted-#{uploaded_io.original_filename}"))
