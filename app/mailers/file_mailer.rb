@@ -1,5 +1,5 @@
 class FileMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "armor@armoredtruck.com"
 
   def mail_file(recipient)
     @recipient = recipient
