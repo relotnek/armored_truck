@@ -43,7 +43,6 @@ def upload
     ciphertext = box.encrypt(nonce,message)
     full = nonce + ciphertext
     send_data full, :filename => uploaded_io.original_filename
-
 end
 
 def decrypt
