@@ -55,7 +55,6 @@ def decrypt
     box = RbNaCl::Box.new(@key.first.public_key, priv_key.read)
     ciphertext = uploaded_io.read
     message = box.decrypt(ciphertext.slice(0,24),ciphertext.slice(24,ciphertext.length))
-
   send_data message, :filename => uploaded_io.original_filename
 end
 
