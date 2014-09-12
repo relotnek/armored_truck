@@ -27,12 +27,9 @@ ArmoredTruck::Application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    :address => "smtp.mandrillapp.com",
-    :port => 25,
+    :address => "127.0.0.1",
+    :port => 1025,
     :enable_starttls_auto => false,
-    :user_name => "adv@kentoler.com",
-    :password => "RUQO4zO2BGtYu-38lpUCDA",
-    :authentication => 'login',
     :domain => 'armoredtruck.com',
   }
   # Debug mode disables concatenation and preprocessing of assets.
