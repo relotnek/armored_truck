@@ -5,7 +5,6 @@
 	<% @users.each do |user| %>
 <tr>
 	<td class="col-sm-2"><%= link_to(user.email, user) %></td>
-	<td class="col-sm-6"><%= user.public_key.inspect %></td>
 </tr>
 <% end %>
 </tbody>

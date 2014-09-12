@@ -23,6 +23,11 @@ class KeysController < ApplicationController
     end
   end
 
+def show
+  # finds the key to show
+  @key = Key.find(params[:id])
+end
+
   def generate
     #specifies curent user so it can be used by @key
     @user = current_user
@@ -38,11 +43,6 @@ class KeysController < ApplicationController
     @key.save
     #sends private key to the user as a download so that it is never stored server side
     send_data private, :filename => "#{@key.name}"
-  end
-
-  def show
-    # finds the key to show
-    @key = Key.find(params[:id])
   end
 
   #defines accepted parameters

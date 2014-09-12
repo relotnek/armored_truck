@@ -4,7 +4,7 @@
 <tbody>
   <% @keys.each do |key| %>
 <tr>
-  <td class="col-sm-2"><%= key.name %></td>
+  <td class="col-sm-2"><%=link_to(key.name, key) %></td>
 </tr>
 <% end %>
 </tbody>

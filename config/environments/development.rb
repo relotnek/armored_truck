@@ -22,6 +22,19 @@ ArmoredTruck::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.mandrillapp.com",
+    :port => 25,
+    :enable_starttls_auto => false,
+    :user_name => "adv@kentoler.com",
+    :password => "RUQO4zO2BGtYu-38lpUCDA",
+    :authentication => 'login',
+    :domain => 'armoredtruck.com',
+  }
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
