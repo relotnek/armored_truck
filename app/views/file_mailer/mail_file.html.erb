@@ -1,3 +1,10 @@
 <html>
-Hello <%= @recipient %>!
+Hello <%= @recipient %>!<br><br>
+<%= @sender %> has sent you a file using ArmoredTruck using his <%= @privkeyname %> key and your <%= @pubkeyname %> Key
+<br>
+<br>
+
+To Decrypt this file, use any safe. Upload your <%= @pubkeyname %> key using "Decrypt a File" along with
+the attached encrypted file. Specify <%= @sender %> as the sender email, and specify <%= @privkeyname %> as
+the name of the sender's public key.
 </html>
