@@ -4,7 +4,8 @@
 	<%= f.label "File to Encrypt:" %>
 	<%= f.file_field :rawfile %><br>
 	<%= label_tag "Recipient's Email:" %><br>
-	<%= text_field_tag :recipient_id %><br>
+	<%= select("recipient","recipient_id", @recipients.all.collect {|r| [ r.email, r.email ]}) %>
+	<!--<%= text_field_tag :recipient_id %><br>-->
 	<%= label_tag "Name of the Recipient's Public Key:" %><br>
 	<%= text_field_tag :key_name %><br>
 <%= f.button :submit, :class => "btn btn-xs btn-success" %>
