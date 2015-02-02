@@ -61,4 +61,3 @@ gem 'unicorn'
 # Production Gem for Heroku
 gem 'rails_12factor', group: :production
 
-ruby '2.0.0'
