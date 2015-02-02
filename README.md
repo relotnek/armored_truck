@@ -14,6 +14,16 @@ Building Locally
 
 Armored Truck can be built locally using postgres, libsodium libraries, and RbNaCl
 
+With postgres installed issue the following commands to create the necessary user and database:
+```
+$ createuser armored_user -P 
+```
+Specify the password that you will use in the database.yml file, by default this is `Apple$auce1!`
+```
+$ createdb -O armored_user trucker
+```
+
+
 
 Using Heroku
 ==============

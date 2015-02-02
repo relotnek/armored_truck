@@ -9,5 +9,4 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @keys = @user.keys.all
   end
-  
 end
