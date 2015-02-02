@@ -23,7 +23,7 @@ end
 def show
   #shows a safe by the id. Logic in the view will prevent unauthorized safe views
   @safe = Safe.find(params[:id])
-  @recipients = User.all
+  @users = User.all
 end
 
 def update
@@ -50,7 +50,7 @@ end
 
 def decrypt
   @user = current_user
-  @sender = User.find_by(email: params[:sender_id])
+  @sender = User.find_by(email: params[:sender][:sender_id])
   @key = @sender.keys.where("name = ?", params[:key_name])
   uploaded_io = params[:safe][:rawfile]
   priv_key = params[:safe][:priv_key]

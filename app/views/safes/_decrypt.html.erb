@@ -2,9 +2,9 @@
 	<%= f.label "Your Private Key:" %><br>
 	<%= f.file_field :priv_key %>
 	<%= f.label "Encrypted File:" %>
-	<%= f.file_field :rawfile %>
+	<%= f.file_field :rawfile %><br>
 	<%= label_tag "Sender Email:" %><br>
-	<%= text_field_tag :sender_id %><br>
+	<%= select("sender","sender_id", @users.all.collect {|s| [ s.email, s.email ]}) %><br>
 	<%= label_tag "Name of the sender's public key:" %><br>
 	<%= text_field_tag :key_name %><br>
 <%= f.button :submit, :class => "btn btn-xs btn-success" %>
