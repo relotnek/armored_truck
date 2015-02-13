@@ -31,7 +31,7 @@ Follow the Heroku DevCenter setup for Rails 4:
 https://devcenter.heroku.com/articles/getting-started-with-rails4
 
 Use the custom buildpack to include the libsodium library:
-heroku config:set BUILDPACK_URL=https://github.com/relotnek/heroku-buildpack-libsodium.git
+heroku config:set BUILDPACK_URL=https://bitbucket.org/relotnek/rbnacl-buildpack.git
 
 Precompile Stylesheets and Assets using the following command:
 RAILS_ENV=production bundle exec rake assets:precompile
