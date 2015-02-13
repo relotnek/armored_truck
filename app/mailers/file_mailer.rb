@@ -6,7 +6,7 @@ class FileMailer < ActionMailer::Base
     @sender = sender
     @pubkeyname = pubkey
     @privkeyname = privkeyname
-    #attachments[encfilename] = {encoding: 'quoted-printable', content: encryptedfile }
+    #attachments[encfilename] = { encoding: 'quoted-printable', content: "test" }
     mail(to: @recipient, subject: "ARMOR!")
 
   end

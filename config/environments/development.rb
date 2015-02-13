@@ -27,9 +27,13 @@ ArmoredTruck::Application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    :address => "127.0.0.1",
-    :port => 1025,
+    :address => "smtp.mandrillapp.com",
+    :port => 587,
     :enable_starttls_auto => false,
+    :domain => "kentoler.com",
+    :user_name => "adv@kentoler.com",
+    :password => "RUQO4zO2BGtYu-38lpUCDA",
+    :authentication => :login,
     :domain => 'armoredtruck.com',
   }
 

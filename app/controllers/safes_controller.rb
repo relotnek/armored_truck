@@ -43,7 +43,7 @@ def upload
     message = uploaded_io.read
     ciphertext = box.encrypt(nonce,message)
     full = nonce + ciphertext
-    #FileMailer.mail_file(@recipient.email, current_user.email, params[:key_name], priv_key.original_filename, uploaded_io.original_filename).deliver
+    FileMailer.mail_file(@recipient.email, current_user.email, params[:key_name], priv_key.original_filename, uploaded_io.original_filename).deliver
   send_data full, :filename => uploaded_io.original_filename
 
 end
