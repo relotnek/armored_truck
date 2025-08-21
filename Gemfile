@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '7.1.5.2'
 
 # Use postgresql
 gem 'pg'
@@ -37,7 +37,7 @@ gem 'devise'
 gem 'jbuilder', '~> 1.2'
 
 # Twitter bootstrap
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '>= 3.2.2'
 gem 'less-rails'
 gem 'therubyracer'
 
